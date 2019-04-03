@@ -1,0 +1,29 @@
+# даны 3 числа, yes если есть одинаковые, error если нет
+try:
+    a = int(input("Введите число: "))
+    b = int(input("Введите число: "))
+    c = int(input("Введите число: "))
+except ValueError:
+    print("Введите число.")
+try:
+    if a == c or a == b or c == b or a == b == c:
+        print("Yes")
+    else:
+        print("Error")
+except NameError:
+    print("Вы не правы.")
+
+# даны 3 числа, на экран yes  если 2 из них равны 3
+try:
+    a = int(input("Введите число: "))
+    b = int(input("Введите число: "))
+    c = int(input("Введите число: "))
+except ValueError:
+    print("Введите число.")
+try:
+    if a + b == c or b + c == a or a + c == b:
+        print("Yes")
+    else:
+        print("Error")
+except NameError:
+    print("Вы не правы.")
