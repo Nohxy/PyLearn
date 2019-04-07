@@ -4,8 +4,6 @@ for h in range(15):
     some+=h
 print('Значение: ',some)
 
-kol = ''
-
 #Распечатывать дни недели с их порядковыми номерами.
 
 weekdays = ['Monday','Tuesday','Wednesday','Thusday','Friday','Saturday','Sunday']
