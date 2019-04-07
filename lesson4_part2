@@ -1,0 +1,15 @@
+#Посчитать сумму числового ряда от 0 до 14 включительно.
+some = 0
+for h in range(15):
+    some+=h
+print('Значение: ',some)
+
+kol = ''
+
+#Распечатывать дни недели с их порядковыми номерами.
+
+weekdays = ['Monday','Tuesday','Wednesday','Thusday','Friday','Saturday','Sunday']
+workdays = ['Job','Job','Job','Job','Job','Free','Free']
+
+for d in range(len(weekdays)):
+    print(d+1,') ',weekdays[d],' - ',workdays[d])
