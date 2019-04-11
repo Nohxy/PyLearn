@@ -1,0 +1,127 @@
+#1 Пустая функция
+def empty():
+    pass
+
+#2 Возвращение значение умноженного на 2
+def x2(i):
+    return i * 2
+
+
+#3 Определение чётности числа
+def isOdd(number):
+    if number % 2 == 0:
+        print("Yes")
+    else:
+        print("no")
+
+
+isOdd(20);
+print(x2(54))
+
+
+# 4 Сравнение двух чисел
+def function(arg1, arg2=10):
+    if arg1 > arg2:
+        print("yes")
+    else:
+        print("no")
+
+
+function(233, 11)
+
+# 5 lambda-функция
+x = lambda a, b: a % b
+print(x(144, 22))
+
+
+# 6 decorator
+def decor(func):
+    def wrapper():
+        print("some")
+        func()
+        print("some")
+
+    return wrapper
+
+
+def function():
+    print("Show!")
+
+
+function()
+
+
+# 7 map and filter
+def plus(x):
+    return x + 5
+
+
+num = [11, 22, 33, 44, 55, 66, 77, 88, 99]
+print(list(map(plus, num)))
+
+
+def plus(x):
+    return x % 2 == 0
+
+
+num = [11, 22, 33, 44, 55, 66, 77, 88, 99]
+print(list(filter(plus, num)))
+
+
+# 8 min, max
+def minmax(*x):
+    return min(x)
+
+
+print(minmax(22, 11, 66, 88, 99))
+
+
+# 9 Високосный год
+def year(y):
+    x = range(0, 10020, 4)
+
+    if y in x:
+
+        return ("Высокосный год")
+    else:
+        return ("Обычный год")
+
+
+print(year(2016))
+
+
+# 10 Время года
+def season(month):
+    if month == 12 or month == 1 or month == 2:
+        return 'winter'
+    elif month in range(3, 5):
+        return 'spring'
+    elif month == 6 or month == 7 or month == 8:
+        return 'summer'
+    elif month == 9 or month == 10 or month == 11:
+        return 'autumn'
+    else:
+        return 'error'
+
+
+mm = 2
+print(season(mm))
+
+
+def date(d, m, y):
+    pass
+
+
+l = [16, -17, 2, 78.7, False, False, {'True', True}, 555, 12, 23, 42, 'DD']
+new = list()
+
+
+def listTransform(old):
+    for item in old:
+        if type(item) == int or type(item) == float:
+            new.append(item)
+
+    return sorted(new)
+
+
+print(listTransform(l))
