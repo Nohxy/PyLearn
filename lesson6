@@ -1,32 +1,34 @@
 import requests
 from bs4 import BeautifulSoup as bs
+import pprint
+
+headers = {'accept': '*/*',
+           'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.127 (Edition Yx 02)'} 
+
+url = 'https://hh.ru/search/vacancy?search_period=3&area=1&text=python&page=0'
 
 
-def get_html(url):
-    r = requests.get(url)
-    return r.text
-
-def get_data(html):
-    soup = bs(html,'lxml')
-    base_col = soup.text
-    return base_col
-
-
-def main():
-    base_url = "http://www.nbrb.by/API/ExRates/Rates/145"
-    data1 =get_data(get_html(base_url))
-    dct1 = {}
-    dct1 = eval(data1)
-    base_url2 = "http://www.nbrb.by/API/ExRates/Rates/292"
-    data2 =get_data(get_html(base_url2))
-    dct2 = {}
-    dct2 = eval(data2)
-    
-    GreateDate = dct1["Date"]
-    Today = GreateDate[8:10]+'.' + GreateDate[5:7] + '.' + GreateDate[:4]
-    
-    print('За ',Today, ' курс ',dct2["Cur_OfficialRate"],' рублей за 1 Евро, ',dct1["Cur_OfficialRate"],' за 1 доллар')
-main()
-
-if __name__ == '__main__':
-    main()
+def hh_parser(url, headers):
+    session = requests.Session() #иллюзия пользователя
+    request = session.get(url, headers=headers) # эмуляция открытия страницы в браузере
+    if request.status_code == 200: #проверка на отклик сервера парсеру
+        soup = bs(request.content, 'html.parser')# получение html страницы в чистом виде
+        divs  = soup.findAll('div', attrs={'data-qa':'vacancy-serp__vacancy'})
+        for div in divs:
+            title = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-title'}).text
+            href = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-title'})['href']
+            company = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-employer'}).text
+            jobs = []
+            #text1 = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy_snippet_responsibility'}).text
+            #text2 = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy_snippet_requirement'}).text
+            #content = f'{text1}  {text2}')﻿
+            jobs.append({
+                'title': title,
+                'href': href,
+                'company': company
+                #'content': content
+                })
+        pprint.pprint(jobs)
+    else:
+        print('Error')
+hh_parser(url, headers)
