@@ -5,23 +5,23 @@ import pprint
 headers = {'accept': '*/*',
            'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.127 (Edition Yx 02)'} 
 
-url = 'https://hh.ru/search/vacancy?search_period=3&area=1&text=python&page=0'
+url = 'https://hh.ru/search/vacancy?search_period=3&area=1&text=python&page=0' # то откуда парсим
 
 
 def hh_parser(url, headers):
     session = requests.Session() #иллюзия пользователя
     request = session.get(url, headers=headers) # эмуляция открытия страницы в браузере
     if request.status_code == 200: #проверка на отклик сервера парсеру
-        soup = bs(request.content, 'html.parser')# получение html страницы в чистом виде
+        soup = bs(request.content, 'html.parser') # получение html страницы в чистом виде
         divs  = soup.findAll('div', attrs={'data-qa':'vacancy-serp__vacancy'})
         for div in divs:
-            title = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-title'}).text
-            href = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-title'})['href']
-            company = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-employer'}).text
+            title = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-title'}).text #название вакансии
+            href = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-title'})['href'] #ссылка на вакансию
+            company = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy-employer'}).text #название компании
             jobs = []
             #text1 = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy_snippet_responsibility'}).text
             #text2 = div.find('a', attrs={'data-qa':'vacancy-serp__vacancy_snippet_requirement'}).text
-            #content = f'{text1}  {text2}')﻿
+            #content = f'{text1}  {text2}'
             jobs.append({
                 'title': title,
                 'href': href,
